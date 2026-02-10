@@ -10,6 +10,7 @@
       margin: 0;
       padding: 0;
     }
+
     .container {
       max-width: 800px;
       margin: 100px auto;
@@ -19,26 +20,75 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       text-align: center;
     }
+
     h1 {
       color: #333;
     }
+
     p {
       color: #666;
       line-height: 1.6;
     }
+
     a {
       color: #007acc;
       text-decoration: none;
     }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    tfoot td {
+      color: #999;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>안녕하세요 👋</h1>
     <p>이곳은 제 GitHub 개인 홈페이지입니다.</p>
-    <p>
-      👉 <a href="https://github.com/내아이디" target="_blank">GitHub 바로가기</a>
-    </p>
+
+    <table aria-label="개인 정보 테이블">
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th>내용</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>GitHub</td>
+          <td>
+            <a href="https://github.com/내아이디" target="_blank">바로가기</a>
+          </td>
+        </tr>
+        <tr>
+          <td>관심 분야</td>
+          <td>웹 개발</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="2">감사합니다 🙇‍♂️</td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
+
 </body>
 </html>
