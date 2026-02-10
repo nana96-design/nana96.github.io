@@ -1,13 +1,60 @@
-<style>
-  /* ID 이름을 'round'로 통일했습니다 */
-  #round { 
-    display: inline-block; 
-    width: 200px; 
-    height: 100px;         /* 박스를 보이게 하기 위한 높이 추가 */
-    border: 11px solid black;
-    border-radius: 10px;   /* [를 p로 수정 */
-    background-color: green;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>동그라미 버튼 두 개</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center; /* 가로 가운데 정렬 */
+            align-items: center;     /* 세로 가운데 정렬 */
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            gap: 30px;               /* 동그라미 사이의 간격 */
+        }
 
-<div id="round"></div>
+        .circle { 
+            width: 120px;            /* 가로 세로 크기를 똑같이 */
+            height: 120px;
+            border: 5px solid #333;
+            border-radius: 50%;      /* 50%를 주면 완전한 원이 됩니다 */
+            background-color: green;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 마우스를 올렸을 때 살짝 커지는 효과 */
+        .circle:hover {
+            transform: scale(1.1);
+        }
+
+        /* 클릭했을 때 변할 스타일 (클래스) */
+        .circle.active {
+            background-color: tomato;
+            border-color: #ff6347;
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="circle" onclick="toggleCircle(this)">버튼 1</div>
+    <div class="circle" onclick="toggleCircle(this)">버튼 2</div>
+
+    <script>
+        function toggleCircle(element) {
+            // 클릭한 그 버튼(element)의 색상만 바꿉니다
+            element.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
