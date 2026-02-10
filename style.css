@@ -1,0 +1,130 @@
+:root {
+  --primary-color: #4834d4;
+  --bg-color: #f8f9fa;
+  --holiday-bg: #ffecec;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.nav-btn {
+  background: #eee;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.nav-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+#current-month-year {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.calendar th, .calendar td {
+  border: 1px solid #f1f1f1;
+  padding: 15px 5px;
+  text-align: center;
+  position: relative;
+}
+
+/* 헤더 스타일 */
+.calendar th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.calendar td {
+  cursor: pointer;
+  height: 65px;
+  vertical-align: top;
+}
+
+.calendar td:hover:not(.empty) {
+  background: #fdfdfd;
+  transform: scale(1.01);
+}
+
+.sun { color: #e74c3c; } 
+.sat { color: #0984e3; }
+
+/* 공휴일 스타일 */
+.holiday { 
+  color: red !important; 
+  font-weight: bold; 
+  background-color: var(--holiday-bg) !important; 
+}
+
+.empty { background: #fafafa; cursor: default; }
+.today { background: #fffbe6 !important; border: 2px solid #f1c40f !important; }
+
+.memo-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: #6c5ce7;
+  border-radius: 50%;
+  margin: 5px auto 0;
+}
+
+.memo-section {
+  background: #f1f2f6;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 20px;
+  display: none;
+}
+
+#memo-input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.btn-save {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
