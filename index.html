@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 개인 홈페이지 - 스마트 달력</title>
   <style>
-    /* 🎨 디자인 (CSS) */
+    /* 🎨 기본 설정 */
     :root {
       --primary-color: #4834d4;
       --bg-color: #f8f9fa;
@@ -13,47 +13,79 @@
     }
     body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
     .container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
-    
-    /* 📦 새로 추가한 박스 스타일 */
-    .box {
-      margin: 20px auto;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background-color: #fff;
-      max-width: 90%;
-    }
-    .hello {
-      margin: 10px 0;
-      padding: 5px;
-      color: #4834d4;
-      font-size: 1.5rem;
+
+    /* 📦 3단 박스 레이아웃 디자인 (요청 사항 반영) */
+    .top-section { margin-bottom: 20px; text-align: center; }
+
+    /* 1. 상단 제목 박스 */
+    .title-box {
+      background-color: #ffffff;
+      border: 2px solid #eee;
+      border-radius: 15px;
+      padding: 20px;
+      font-size: 1.6rem;
       font-weight: bold;
-      text-transform: uppercase;
-    }
-    .word {
-      padding: 2px 10px;
-      background-color: #fab1a0;
-      color: white;
-      border-radius: 5px;
-      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px; /* 아래 박스들과의 간격 20px */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
-    /* 📅 달력 관련 스타일 */
-    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; }
-    .nav-btn { background: #eee; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+    /* 하단 두 박스를 가로로 정렬 */
+    .flex-container {
+      display: flex;
+      gap: 20px; /* 박스 사이 간격 20px */
+      justify-content: center;
+    }
+
+    /* 2. 왼쪽 HELLO 박스 (글자 속성 & 색상 강조) */
+    .hello-box {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background-color: #fff;
+      
+      /* 글자 스타일 속성 */
+      color: #eb4d4b;          /* 붉은 계열 색상 */
+      font-size: 1.4rem;
+      font-weight: 900;        /* 아주 굵게 */
+      font-style: italic;      /* 기울임꼴 */
+      text-decoration: underline; /* 밑줄 */
+      letter-spacing: 3px;     /* 자간 넓게 */
+    }
+
+    /* 3. 오른쪽 WORD 박스 (배경색 강조) */
+    .word-box {
+      flex: 1;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #6c5ce7; /* 진한 보라색 배경 */
+      color: white;              /* 흰색 글자 */
+      font-size: 1.4rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 📅 달력 디자인 */
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 20px 0; }
+    .nav-btn { background: #eee; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
     .nav-btn:hover { background: var(--primary-color); color: white; }
-    #current-month-year { font-size: 1.5rem; font-weight: bold; color: #333; }
-    .calendar { width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 20px; border-radius: 10px; overflow: hidden; }
+    #current-month-year { font-size: 1.5rem; font-weight: bold; }
+
+    .calendar { width: 100%; border-collapse: collapse; table-layout: fixed; border-radius: 10px; overflow: hidden; }
     .calendar th, .calendar td { border: 1px solid #f1f1f1; padding: 15px 5px; text-align: center; position: relative; }
-    .calendar th { background-color: #f2f2f2; font-weight: bold; }
+    .calendar th { background-color: #f2f2f2; }
     .calendar td { cursor: pointer; height: 65px; vertical-align: top; }
+    
     .sun { color: #e74c3c; } 
     .sat { color: #0984e3; }
     .holiday { color: red !important; font-weight: bold; background-color: var(--holiday-bg) !important; }
     .today { background: #fffbe6 !important; border: 2px solid #f1c40f !important; }
+    
     .memo-dot { display: block; width: 6px; height: 6px; background: #6c5ce7; border-radius: 50%; margin: 5px auto 0; }
-    .memo-section { background: #f1f2f6; padding: 15px; border-radius: 12px; margin-top: 20px; display: none; }
+    .memo-section { background: #f1f2f6; padding: 20px; border-radius: 12px; margin-top: 20px; display: none; }
     #memo-input { width: 80%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-bottom: 10px; }
     .btn-save { background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
     .btn-delete { background-color: #ff7675; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
@@ -63,16 +95,25 @@
 
   <div class="container">
     <div id="weather-info" style="text-align: right; font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-      📍 현재 날씨: 맑음 🌤️
+      📍 오늘 날씨: 맑음 🌤️
     </div>
-    
+
     <h1>My Workspace 🚀</h1>
 
-    <div class="box">
-      <div class="hello">HELLO!</div>
-      <p>오늘의 핵심 단어는 <span class="word">달력 마스터</span> 입니다.</p>
-    </div>
+    <div class="top-section">
+      <div class="title-box">
+        📅 2026 Monthly Planner & Memo
+      </div>
 
+      <div class="flex-container">
+        <div class="hello-box">
+          HELLO
+        </div>
+        <div class="word-box">
+          WORD
+        </div>
+      </div>
+    </div>
     <div class="calendar-header">
       <button class="nav-btn" onclick="changeMonth(-1)">이전 달</button>
       <span id="current-month-year"></span>
@@ -90,16 +131,15 @@
 
     <div id="memo-section" class="memo-section">
       <h3 id="selected-date-display"></h3>
-      <input type="text" id="memo-input" placeholder="이날의 메모를 입력하세요...">
+      <input type="text" id="memo-input" placeholder="할 일을 입력해 보세요...">
       <div>
-        <button class="btn-save" onclick="saveMemo()">저장하기</button>
-        <button class="btn-delete" onclick="deleteMemo()">삭제하기</button>
+        <button class="btn-save" onclick="saveMemo()">저장</button>
+        <button class="btn-delete" onclick="deleteMemo()">삭제</button>
       </div>
     </div>
   </div>
 
   <script>
-    // 2026년 공휴일
     const holidays = {
       "2026-1-1": "신정", "2026-2-16": "설날 연휴", "2026-2-17": "설날",
       "2026-2-18": "설날 연휴", "2026-3-1": "삼일절", "2026-5-5": "어린이날",
@@ -114,11 +154,9 @@
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
       document.getElementById('current-month-year').innerText = `${year}년 ${month + 1}월`;
-      
       const firstDay = new Date(year, month, 1).getDay();
       const totalDays = new Date(year, month + 1, 0).getDate();
       const calendarBody = document.getElementById('calendar-body');
-      
       calendarBody.innerHTML = '';
       let html = '';
       let day = 1;
@@ -131,64 +169,4 @@
           if (cellIndex < firstDay || day > totalDays) {
             row += '<td class="empty"></td>';
           } else {
-            const dateKey = `${year}-${month + 1}-${day}`;
-            const isToday = new Date().toLocaleDateString() === new Date(year, month, day).toLocaleDateString();
-            const isHoliday = holidays[dateKey];
-            
-            let classes = [];
-            if (j === 0 || isHoliday) classes.push('sun');
-            if (j === 6) classes.push('sat');
-            if (isHoliday) classes.push('holiday');
-            if (isToday) classes.push('today');
-
-            const hasMemo = localStorage.getItem(dateKey);
-            const memoHtml = hasMemo ? '<span class="memo-dot"></span>' : '';
-
-            row += `<td class="${classes.join(' ')}" onclick="openMemo('${dateKey}')">
-                      ${day}${isToday ? ' 🌤️' : ''}${memoHtml}
-                      ${isHoliday ? `<div style="font-size:10px;">${isHoliday}</div>` : ''}
-                    </td>`;
-            day++;
-            rowHasDay = true;
-          }
-        }
-        row += '</tr>';
-        if (rowHasDay) html += row;
-      }
-      calendarBody.innerHTML = html;
-    }
-
-    function changeMonth(delta) {
-      currentDate.setMonth(currentDate.getMonth() + delta);
-      renderCalendar();
-      document.getElementById('memo-section').style.display = 'none';
-    }
-
-    function openMemo(dateKey) {
-      selectedDateKey = dateKey;
-      document.getElementById('memo-section').style.display = 'block';
-      document.getElementById('selected-date-display').innerText = `${dateKey.replace(/-/g, '. ')} 메모`;
-      document.getElementById('memo-input').value = localStorage.getItem(dateKey) || '';
-    }
-
-    function saveMemo() {
-      const memoText = document.getElementById('memo-input').value;
-      if (memoText.trim() === '') localStorage.removeItem(selectedDateKey);
-      else localStorage.setItem(selectedDateKey, memoText);
-      alert('저장되었습니다!');
-      renderCalendar();
-    }
-
-    function deleteMemo() {
-      if (confirm("정말 이 메모를 삭제하시겠습니까?")) {
-        localStorage.removeItem(selectedDateKey);
-        document.getElementById('memo-input').value = "";
-        alert('삭제되었습니다.');
-        renderCalendar();
-      }
-    }
-
-    renderCalendar();
-  </script>
-</body>
-</html>
+            const dateKey = `${year}-${month + 1}-${
