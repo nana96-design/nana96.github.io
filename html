@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Link Dashboard</title>
+  <style>
+    :root {
+      --primary-color: #4834d4;
+      --bg-color: #f8f9fa;
+      --chatgpt-color: #10a37f;
+      --gemini-color: #1a73e8;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+      margin: 0;
+    }
+
+    /* 1. 상단 중앙 수정 가능한 제목 */
+    .header-container {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 20px; /* 아래 박스와 20px 간격 */
+    }
+
+    .main-title {
+      display: inline-block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #2d3436;
+      padding: 10px 20px;
+      border-radius: 12px;
+      transition: all 0.3s;
+      outline: none;
+      cursor: text;
+    }
+
+    .main-title:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .main-title:focus {
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      color: var(--primary-color);
+    }
+
+    /* 2. 하단 링크 박스 컨테이너 */
+    .link-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* 링크 박스 공통 스타일 */
+    .link-box {
+      flex: 1;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .link-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    /* 왼쪽 Hello 박스 (ChatGPT) */
+    .hello-box {
+      background-color: var(--chatgpt-color);
+    }
+
+    /* 오른쪽 World 박스 (Gemini) */
+    .world-box {
+      background-color: var(--gemini-color);
+    }
+
+    .hint {
+      margin-top: 15px;
+      font-size: 0.8rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-container">
+    <div id="editable-title" class="main-title" contenteditable="true" spellcheck="false">
+      나의 대시보드
+    </div>
+  </div>
+
+  <div class="link-container">
+    <a href="https://chatgpt.com" target="_blank" class="link-box hello-box">
+      HELLO
+    </a>
+
+    <a href="https://gemini.google.com" target="_blank" class="link-box world-box">
+      WORLD
+    </a>
+  </div>
+
+  <p class="hint">※ 제목을 클릭해서 수정해보세요. 자동으로 저장됩니다.</p>
+
+  <script>
+    const titleElement = document.getElementById('editable-title');
+
+    // 1. 페이지 로드 시 저장된 제목 불러오기
+    window.onload = () => {
+      const savedTitle = localStorage.getItem('custom-dashboard-title');
+      if (savedTitle) {
+        titleElement.innerText = savedTitle;
+      }
+    };
+
+    // 2. 제목 수정 시 실시간 저장 (포커스를 잃을 때 저장)
+    titleElement.addEventListener('blur', () => {
+      localStorage.setItem('custom-dashboard-title', titleElement.innerText);
+    });
+
+    // 엔터 키 누르면 줄바꿈 대신 저장하고 포커스 해제
+    titleElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        titleElement.blur();
+      }
+    });
+  </script>
+
+</body>
+</html>
