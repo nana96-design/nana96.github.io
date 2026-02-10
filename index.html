@@ -21,7 +21,7 @@
       text-align: center;
     }
 
-    h1 {
+    h1, h2 {
       color: #333;
     }
 
@@ -35,11 +35,12 @@
       text-decoration: none;
     }
 
+    /* 개인 정보 테이블 */
     table {
       margin: 30px auto;
       border-collapse: collapse;
       width: 100%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 테이블에도 그림자 */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -55,13 +56,59 @@
     }
 
     tbody tr:hover {
-    background-color: #f1f5ff; 
+      background-color: #f1f5ff; 
     }
 
     tfoot td {
       color: #666;
       font-style: italic;
       padding: 12px;
+    }
+
+    /* 달력 스타일 */
+    .calendar {
+      width: 100%;
+      max-width: 400px;
+      margin: 30px auto 50px;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+
+    .calendar th, .calendar td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 8px;
+      width: 14.28%;
+      cursor: pointer;
+    }
+
+    .calendar thead th {
+      background-color: #f0f4ff;
+      font-weight: bold;
+    }
+
+    .calendar .sun {
+      color: red;
+    }
+
+    .calendar .sat {
+      color: blue;
+    }
+
+    .calendar .empty {
+      background-color: #fafafa;
+      border: none;
+      cursor: default;
+    }
+
+    .calendar .today {
+      background-color: #ffeb3b;
+      font-weight: bold;
+      border: 2px solid #fbc02d;
+    }
+
+    .calendar td:hover:not(.empty) {
+      background-color: #d0e1ff;
     }
   </style>
 </head>
@@ -71,6 +118,7 @@
     <h1>안녕하세요 👋</h1>
     <p>이곳은 제 GitHub 개인 홈페이지입니다.</p>
 
+    <!-- 개인 정보 테이블 -->
     <table aria-label="개인 정보 테이블">
       <thead>
         <tr>
@@ -78,7 +126,6 @@
           <th>내용</th>
         </tr>
       </thead>
-
       <tbody>
         <tr>
           <td>GitHub</td>
@@ -91,14 +138,76 @@
           <td>웹 개발</td>
         </tr>
       </tbody>
-
       <tfoot>
         <tr>
           <td colspan="2">감사합니다 🙇‍♂️</td>
         </tr>
       </tfoot>
     </table>
+
+    <!-- 달력 섹션 -->
+    <h2>2026년 2월 달력</h2>
+    <table class="calendar" aria-label="2026년 2월 달력">
+      <thead>
+        <tr>
+          <th class="sun">일</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th class="sat">토</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body">
+        <!-- JS가 날짜 채움 -->
+      </tbody>
+    </table>
   </div>
+
+  <!-- 달력 스크립트 -->
+  <script>
+    const year = 2026;
+    const month = 1; // 0=1월, 1=2월
+    const calendarBody = document.getElementById('calendar-body');
+
+    function daysInMonth(y, m) {
+      return new Date(y, m + 1, 0).getDate();
+    }
+
+    const firstDay = new Date(year, month, 1).getDay();
+
+    // 오늘 날짜 (예시: 14일)
+    const today = new Date(2026, 1, 14);
+
+    let html = '';
+    let day = 1;
+    const totalDays = daysInMonth(year, month);
+
+    for(let week=0; week<5; week++) {
+      html += '<tr>';
+      for(let i=0; i<7; i++) {
+        const cellIndex = week*7 + i;
+        if(cellIndex < firstDay || day > totalDays) {
+          html += '<td class="empty"></td>';
+        } else {
+          const isToday = (day === today.getDate());
+          html += `<td class="${isToday ? 'today' : ''}" data-day="${day}">${day}</td>`;
+          day++;
+        }
+      }
+      html += '</tr>';
+    }
+
+    calendarBody.innerHTML = html;
+
+    calendarBody.addEventListener('click', (e) => {
+      if(e.target.tagName === 'TD' && !e.target.classList.contains('empty')) {
+        const selectedDay = e.target.getAttribute('data-day');
+        alert(`2026년 2월 ${selectedDay}일을 클릭했습니다!`);
+      }
+    });
+  </script>
 
 </body>
 </html>
