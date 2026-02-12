@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Layout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 화면 전체 높이 차지 */
+        }
+
+        .box {
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        /* 상단과 하단 */
+        header { background-color: #2c3e50; }
+        footer { background-color: #2c3e50; }
+
+        /* 중앙 그룹 설정 */
+        .middle-group {
+            display: flex;
+            flex: 1; /* 남은 세로 공간을 꽉 채움 */
+        }
+
+        /* 좌우측 사이드 (고정 느낌의 긴 직사각형) */
+        .side {
+            background-color: #34495e;
+            flex-basis: 150px; /* 기본 너비 설정 */
+            flex-grow: 0;      /* 좌우는 크게 늘어나지 않음 */
+        }
+
+        /* 중앙 (나머지 공간을 다 차지하며 늘어남) */
+        .center {
+            background-color: #3498db;
+            flex-grow: 1;      /* 화면이 커질 때 이 박스가 우선적으로 늘어남 */
+        }
+
+        /* 모바일 대응 (화면이 좁아지면 세로로 배치) */
+        @media (max-width: 768px) {
+            .middle-group {
+                flex-direction: column;
+            }
+            .side, .center {
+                flex-basis: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="box">상단 (Header)</header>
+
+    <div class="middle-group">
+        <aside class="box side">좌측 (Aside)</aside>
+        <main class="box center">중앙 (Main - 나만 늘어남)</main>
+        <aside class="box side">우측 (Aside)</aside>
+    </div>
+
+    <footer class="box">하단 (Footer)</footer>
+</div>
+
+</body>
+</html>
